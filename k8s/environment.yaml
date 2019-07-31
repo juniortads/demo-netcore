@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: environment-deployment
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: environment
+    spec:
+      containers:
+      - name: environment
+        image: index.docker.io/juniortads/demo-netcore:latest
+        ports:
+        - containerPort: 80
